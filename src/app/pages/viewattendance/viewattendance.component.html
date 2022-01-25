@@ -1,0 +1,196 @@
+<nz-divider nzOrientation="" nzDashed="true" nzText="Daily attendance report"></nz-divider>
+
+
+
+<div nz-row [nzGutter]="16">
+
+  <div nz-col nzSpan="6">
+    <!-- <label class="label">Filter by Name or month :&nbsp;&nbsp;</label> -->
+    <!-- 
+    <nz-input-group [nzSuffix]="inputClearTpl" nzSize="large">
+      <input type="text" nz-input [(ngModel)]="inputValue" placeholder="Search by employee name, office , department" />
+    </nz-input-group>
+    <ng-template #inputClearTpl><i nz-icon class="ant-input-clear-icon" nzTheme="fill" nzType="close-circle"
+        *ngIf="inputValue" (click)="inputValue = null"></i></ng-template> -->
+
+    <nz-select nzShowSearch nzAllowClear [(ngModel)]="searchUser" class="searchBox" nzPlaceHolder="Search by user."
+      (ngModelChange)="selectUser($event)">
+      <nz-option *ngFor="let v of viewAttendanceData" nzValue="{{v.id}}" nzLabel="{{v.name}}"></nz-option>
+    </nz-select>
+  </div>
+  <div nz-col nzSpan="4">
+    <button nz-button nzType="secondary" *ngIf="isFilterEnable" nzSize="large" (click)="clearFilter()">Clear
+        Filter</button>
+</div>
+
+
+
+</div>
+<br />
+<nz-table #basicTable [nzData]="listOfFilterData" [nzLoading]="loading" nzShowSizeChanger [nzFooter]="footerString +listOfFilterData?.length">
+  <thead  (nzSortOrderChange)="sort($event)">
+      <!-- [nzFilters]="column.listOfFilter" -->
+      <!-- <th *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
+        [nzSortDirections]="column.sortDirections" [nzFilterMultiple]="column.filterMultiple"
+         [nzFilterFn]="column.filterFn">
+        {{ column.name }}
+      </th> -->
+      <!-- <th *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
+        [nzSortDirections]="column.sortDirections" [nzFilterMultiple]="column.filterMultiple"
+        [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn" (nzFilterChange)=filterchangeData()
+        (nzQueryParams)="onQueryParamsChange($event)">
+        {{ column.name }}
+      </th> -->
+      <tr>
+    <th nzCustomFilter   >Name
+            <nz-filter-trigger [(nzVisible)]="isNameSearchVisible" [nzActive]="searchName"
+                [nzDropdownMenu]="nameSearch">
+                <i nz-icon nzType="search"></i>
+
+            </nz-filter-trigger>
+        </th>
+        <th    nzCustomFilter>
+            Office 
+            <!-- [nzActive]="searchValue.length > 0" -->
+            <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue" [nzDropdownMenu]="menu">
+                <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+        </th>
+        <th  nzCustomFilter>
+            Group
+            <!-- [nzActive]="searchValue.length > 0" -->
+            <nz-filter-trigger [(nzVisible)]="isGroupFilterVisible" [nzActive]="filterGroup"
+                [nzDropdownMenu]="groupSearch">
+                <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+        </th>
+
+        <th>Farvision Id</th>
+        <th>Work Area</th>
+        <th>Location</th>
+        <th nzSortFn="true" [nzSortOrder]="'ascend'"  [nzSortPriority]="true" nzColumnKey="remark" nzCustomFilter>
+            Status
+            <!-- [nzActive]="searchValue.length > 0" -->
+            <nz-filter-trigger [nzActive]="remark_status" [nzDropdownMenu]="statusSearch">
+                <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+        </th>
+        <th>Date</th>
+        <th>In Time</th>
+        <th>Out Time</th>
+        <th>total</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let attendance of  basicTable.data |filter:inputValue">
+      <td>{{attendance.name}}</td>
+      <!-- <td>{{attendance.default_location}}</td> -->
+
+      <!-- <td>{{ attendanceReportService.getOfficeName(attendance.office_id)}}</td> -->
+      <td>{{attendance.office_name}}</td>
+
+      <td>{{attendance.department_name}}</td>
+      <td>{{attendance.farvision_id}}</td>
+
+      <!-- <td *ngIf="attendance.main_requests_id == '-'" >-</td> -->
+      <td>{{attendance.work_area}}</td>
+
+      <td>{{attendance.location}}</td>
+
+
+
+      <td
+        [ngClass]="{'Leave': attendance.remark === 'L', 'halfday':attendance.remark === 'H','present':attendance.remark === 'P' ,'absent':attendance.remark =='A','presentLate':attendance.remark =='P/Late'}">
+        <div class="remark"><span [ngClass]="{'Leave1': attendance.remark === 'L'}">{{attendance.remark}}</span></div>
+      </td>
+      <td>{{attendance.date}}</td>
+      <td>{{attendance.intime}}</td>
+      <td>{{attendance.outtime}}</td>
+      <td>{{attendance.total}}</td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+
+          <nz-select nzShowSearch nzAllowClear class="selectSearchBox customSearchBox" [(ngModel)]="searchValue"
+              nzPlaceHolder="office">
+              <nz-option *ngFor="let o of officeList" nzValue="{{o.office_name}}" nzLabel="{{o.office_name}}">
+              </nz-option>
+          </nz-select>
+
+          <!-- <input type="text" nz-input placeholder="Search name"  /> -->
+          <button nz-button nzSize="small" nzType="primary" (click)="filterKeys({ office_name: searchValue })"
+              class="search-button">
+              Search
+          </button>
+          <button nz-button nzSize="small" (click)="reset('office_name',searchValue='')">Reset</button>
+      </div>
+  </div>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #nameSearch="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+
+          <nz-select nzShowSearch nzAllowClear class="selectSearchBox customSearchBox" [(ngModel)]="searchName"
+              nzPlaceHolder="Name">
+              <nz-option *ngFor="let e of  empList" nzValue="{{e.name}}" nzLabel="{{e.name}}">
+              </nz-option>
+          </nz-select>
+
+          <!-- <input type="text" nz-input placeholder="Search name"  /> -->
+          <button nz-button nzSize="small" nzType="primary" (click)="filterKeys({ name: searchName })"
+              class="search-button">
+              Search
+          </button>
+          <button nz-button nzSize="small" (click)="reset('name',searchName='')">Reset</button>
+      </div>
+  </div>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #groupSearch="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+
+          <!-- nzMode="multiple" -->
+          <!-- (ngModelChange)="multipleGroupChange($event)" -->
+          <nz-select nzShowSearch nzMode="multiple"   nzAllowClear class="selectSearchBox customSearchBox" [(ngModel)]="filterGroup"
+              nzPlaceHolder="Name">
+              <nz-option *ngFor="let d of  departmentList" nzValue="{{d.department_code}}"
+                  nzLabel="{{d.department_name}}">
+              </nz-option>
+          </nz-select>
+
+          <!-- <input type="text" nz-input placeholder="Search name"  /> -->
+          <button nz-button nzSize="small" nzType="primary" (click)="filterKeys({ department_name: filterGroup })"
+              class="search-button">
+              Search
+          </button>
+          <button nz-button nzSize="small" (click)="reset('department_name',filterGroup=null)">Reset</button>
+      </div>
+  </div>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #statusSearch="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+
+          <nz-select nzShowSearch nzAllowClear class="selectSearchBox customSearchBox" [(ngModel)]="remark_status"
+              nzPlaceHolder="Name">
+              <nz-option *ngFor="let s of  statusList" nzValue="{{s.status_name}}" nzLabel="{{s.status_name}}">
+              </nz-option>
+          </nz-select>
+
+          <!-- <input type="text" nz-input placeholder="Search name"  /> -->
+          <button nz-button nzSize="small" nzType="primary" (click)="filterKeys({remark:remark_status})"
+              class="search-button">
+              Search
+          </button>
+          <button nz-button nzSize="small" (click)="reset('remark',remark_status='')">Reset</button>
+      </div>
+  </div>
+</nz-dropdown-menu>

@@ -1,0 +1,11 @@
+.exportImg{
+    width: 50px;
+    float: right;
+    padding: 7px;
+
+}
+   nz-date-picker,
+      nz-range-picker { 
+        margin: 0 8px 12px 0;
+      }
+

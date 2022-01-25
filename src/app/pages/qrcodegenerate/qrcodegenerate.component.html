@@ -1,0 +1,160 @@
+<!-- <div leaflet style="height: 800px;"
+        [leafletOptions]="options"
+        [leafletLayers]="markers"
+        (leafletClick)="handleEvent('click', $event)"
+        
+        >
+   
+    </div> -->
+
+<!-- <div class="container">
+
+      <h1>Angular Google Maps with Places Search Example</h1>
+    
+      <div class="form-group">
+        <label>Enter address</label>
+        <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+      </div>
+    
+      <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+          (dragEnd)="markerDragEnd($event)"></agm-marker>
+      </agm-map>
+    
+      <h5>Address: {{address}}</h5>
+      <div>Latitude: {{latitude}}</div>
+      <div>Longitude: {{longitude}}</div>
+    </div> -->
+
+
+
+
+<!-- <div id="map" style="height: 800px;"></div> -->
+
+<nz-divider nzOrientation="" nzDashed="true" nzText="QR Code"></nz-divider>
+<div style="margin-bottom: 15px;">
+    <button nz-button nzType="primary" (click)="showModal(0)">
+        <i nz-icon nzType="qrcode"></i> <span>Create QR Code</span>
+    </button>
+</div>
+<br />
+
+<nz-table #editRowTable [nzData]="getQrcodeList" [nzLoading]="loading">
+    <thead>
+        <tr>
+            <th>Office Name</th>
+            <th>Office Code (Short Office Name)</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Allow Distance(In KM)</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of editRowTable.data">
+
+            <ng-container *ngIf="!editCache[data.qrcode_id].edit; else editTemplate">
+
+                <td>{{data.office_name}}</td>
+                <td>{{data.short_office_name}}</td>
+                <td>{{data.latitude}}</td>
+                <td>{{data.longitude}}</td>
+                <td>{{data.allowed_distance}}</td>
+
+                <td>
+                    <a (click)="viewQrCode(data)">View</a> &nbsp;
+                    <a (click)="updateQrCode(data)">Update</a>&nbsp;
+                    <a class="deletebtn" (click)="deleteQrCode(data.qrcode_id)">Delete</a>&nbsp;
+                </td>
+            </ng-container>
+
+            <ng-template #editTemplate>
+                <td>{{editCache[data.qrcode_id].data.office_name}}</td>
+                <!-- <td><input type="text" nz-input [(ngModel)]="editCache[data.qrcode_id].data.office_name" /></td> -->
+                <td><input type="text" nz-input [(ngModel)]="editCache[data.qrcode_id].data.short_office_name" /></td>
+                <td><input type="text" nz-input [(ngModel)]="editCache[data.qrcode_id].data.allowed_distance" /></td>
+
+                <!-- <input type="text" nz-input [(ngModel)]="editCache[data.id].data.reporting_manager" /></td> -->
+                <!-- <td><input type="text" nz-input [(ngModel)]="editCache[data.id].data.departmentname" /></td> -->
+
+
+
+                <td>
+                    <button (click)="saveEdit(data.qrcode_id)" nz-button class="saveBtn">Save</button>
+                    &nbsp;
+                    <button nzDanger (click)="cancelEdit(data.qrcode_id)" nz-button> Cancel </button>
+                </td>
+            </ng-template>
+        </tr>
+    </tbody>
+</nz-table>
+
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalHeaderNm" (nzOnCancel)="handleCancel()" [nzFooter]="null">
+
+    <div *nzModalContent>
+        <div class="qrcodeSpace">
+
+            <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="20">
+                    <input type="text" nz-input placeholder="Short Name of Office /Description "
+                        [(ngModel)]="shortOfficeName" />
+                </div>
+            </div>
+            <br />
+            <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="10">
+                    <input type="text" nz-input placeholder="Enter the latitude" [(ngModel)]="officeLat" />
+                </div>
+                <div nz-col nzSpan="10">
+                    <input type="text" nz-input placeholder="Enter the longitude" [(ngModel)]="officeLng" />
+                </div>
+            </div>
+            <br />
+            <nz-select [(ngModel)]="office_id" nzShowSearch nzAllowClear class="selectSearchBox"
+                nzPlaceHolder="Office Name" (ngModelChange)="onChange($event)">
+                <nz-option *ngFor="let o of officeList" nzValue="{{o.office_id}}" nzLabel="{{o.office_name}}">
+                </nz-option>
+            </nz-select>
+            <br />
+            <br />
+
+            <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="10">
+                    <input type="text" nz-input placeholder="Enter the Allowed Distance" [(ngModel)]="allowDistance" />
+                </div>
+            </div>
+
+            <!-- <button nz-button nzType="dashed" style="margin-left: 2px;" class="add-button"
+                (click)="addField($event,'1','Add Location')">
+                <i nz-icon nzType="plus"></i>
+            </button> -->
+        </div>
+        <br />
+        <!--  -->
+
+
+        <button nz-button nzType="primary" class="qrCodeDownloadBtn" nz-popconfirm
+            nzPopconfirmTitle="Please Confirm the Qr code Information." (nzOnConfirm)="saveQRCode()"
+            nzPopconfirmPlacement="right" [nzLoading]="">Save </button>&nbsp;
+        <!-- <button nz-button (click)="resetForm($event)">Reset</button> -->
+
+    </div>
+</nz-modal>
+
+
+<nz-modal [(nzVisible)]="isViewQrcode" nzTitle="View QR Code" (nzOnCancel)="cancelField()" [nzFooter]="null">
+    <!-- <p *nzModalContent>Modal Content</p> -->
+
+    <div class="qrcodeSpace">
+        <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" cssClass="coolQRCode"
+            [value]="value"></ngx-qrcode>
+        <br />
+
+    </div>
+    <div class="downloadBtn_center">
+        <button nz-button nzType="primary" style="text-align: center;" (click)="downloadQrCode()" class="btnSpace"
+            [nzLoading]="isaddLoSubmitLoading">Download</button>
+    </div>
+
+</nz-modal>

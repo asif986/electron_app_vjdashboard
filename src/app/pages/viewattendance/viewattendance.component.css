@@ -1,0 +1,30 @@
+
+.Leave{
+    color: black;
+   
+   }
+   .Leave1{
+       border: 1px solid red;
+       border-radius: 50px;
+       padding-left: 10px;
+       padding-right: 10px;
+   }
+   .halfday{
+       color: orange;
+   }
+  
+   
+   .absent{
+       color: red;
+   }
+   .present{
+       color: green;
+   }
+   .presentLate{
+    color: orange;
+}
+   nz-time-picker {
+    /* margin: 0 8px 12px 0; */
+    width: 121px; 
+}
+   

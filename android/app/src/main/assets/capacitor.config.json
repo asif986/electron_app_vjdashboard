@@ -1,0 +1,6 @@
+{
+	"appId": "com.vjattednancedashboard.app",
+	"appName": "vjattendancedashboard",
+	"webDir": "dist/vjattendancedashboard",
+	"bundledWebRuntime": false
+}

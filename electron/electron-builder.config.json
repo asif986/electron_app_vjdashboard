@@ -1,0 +1,47 @@
+{
+  "appId": "com.attendance.vjattednance",
+  "directories": {
+    "buildResources": "resources"
+  },
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "asif986",
+      "repo": "https://github.com/sumitmpathak-VJ/AttendanceDashboard.git"
+    }
+  ],
+  "files": [
+    "assets/**/*",
+    "build/**/*",
+    "capacitor.config.*",
+    "app/**/*"
+  ],
+
+  "nsis": {
+    "allowElevation": true,
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true
+  },
+  "win": {
+    "publish": [
+      "github"
+    ],
+    "icon": "assets/icon.png",
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64",
+          "ia32"
+        ]
+      }
+    ]
+  },
+
+
+  "linux": {
+    "target": "AppImage",
+    "category": "Utility",
+    "icon": "assets/icon.png"
+  }
+}

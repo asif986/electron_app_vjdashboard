@@ -1,0 +1,10 @@
+.imgPicker {
+    visibility: hidden;
+}
+.excel_import_img{
+    width: 32px;
+}
+.import_div{
+    width: 54px;
+    display: flex;
+}

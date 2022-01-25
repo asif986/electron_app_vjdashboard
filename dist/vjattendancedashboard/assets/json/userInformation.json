@@ -1,0 +1,56 @@
+
+
+[
+    {
+        "header": "Employee Name",
+        "key": "name", 
+        "width": 25
+    },
+    {
+        "header": "Mobile No",
+        "key": "mobile_no", 
+        "width": 25
+    },
+    {
+        "header": "Email",
+        "key": "email", 
+        "width": 25
+    },
+    {
+        "header": "Farvsion Id",
+        "key": "farvision_id", 
+        "width": 25
+    },
+    {
+        "header": "Office Name",
+        "key": "default_location", 
+        "width": 25
+    },
+    {
+        "header": "Department",
+        "key": "department_name", 
+        "width": 25
+    },
+
+
+    {
+        "header": "Reporting Manger Name",
+        "key": "reporting_manager_name", 
+        "width": 25
+    },
+    {
+        "header": "HR Name",
+        "key": "hr_name", 
+        "width": 25
+    },
+    {
+        "header": "HOD Name",
+        "key": "hod_name", 
+        "width": 25
+    },
+    {
+        "header": "Working Slot",
+        "key": "shift_nm", 
+        "width": 25
+    }
+]

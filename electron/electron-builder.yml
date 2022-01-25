@@ -1,0 +1,9 @@
+appId: com.attendance.vjattednance
+publish:
+  provider: github
+  token: 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
+  
+  "mac": {
+    "category": "your.app.category.type",
+    "target": "dmg"
+  },

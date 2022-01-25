@@ -1,0 +1,351 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+/* @import "~ng-zorro-antd/ng-zorro-antd.dark.css";     */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins' !important;
+}
+
+.mat-form-field-infix {
+    font-size: 18px;
+    font-family: 'Poppins' !important;
+}
+
+.btnDesign {
+    font-family: 'Poppins';
+    font-size: 18px;
+    width: 230px;
+    height: 40px;
+    background-color: #1c1f40;
+    color: white;
+}
+
+.textlabel {
+    font-family: 'Poppins';
+    font-size: 22px;
+}
+
+.logoName {
+    font-family: 'Poppins';
+    font-size: 1.8rem;
+    color: white !important;
+}
+
+.logoName span {
+    color: #eb7580;
+    font-size: 'bold' !important;
+}
+
+.DashboardHeaderName {
+    font-family: 'Poppins';
+    font-size: 20px;
+    color: white !important;
+}
+
+.DashboardHeaderName span {
+    color: #eb7580;
+    font-size: 'bold' !important;
+}
+
+label {
+    font-family: 'Poppins';
+}
+
+.ant-card-head {
+    /* background: #001529 !important; */
+    /* color: white !important; */
+    text-align: center !important;
+}
+
+.todayUpdateLabel {
+    font-size: 30px;
+    /* margin-left: 9px */
+}
+
+.ant-card-body {
+    padding: 24px;
+    /* border: 1px solid !important; */
+}
+
+.disabledBtn {
+    display: none;
+}
+
+.pending {
+    /* color: yellow; */
+    color: orange;
+}
+
+.success {
+    color: green;
+}
+
+.reject {
+    color: red;
+}
+
+.tableDash {
+    text-align: center;
+}
+
+
+/*  after black mode switch changes */
+
+.ant-layout-sider {
+    background-color: #001529 !important;
+}
+
+.ant-menu.ant-menu-dark {
+    background-color: #001529 !important;
+}
+
+.ant-layout-header {
+    background-color: #001529 !important;
+    /* background: #fff; */
+}
+
+.ant-table-thead>tr>th {
+    background-color: rgb(0 21 41) !important;
+    color: white !important;
+}
+
+
+/*  for location add */
+
+.addLocation {
+    display: flex;
+    height: 32px;
+    /* justify-content: space-between; */
+}
+
+.btnSpace {
+    margin-left: 4px;
+}
+
+.ant-table-content {
+    overflow: auto;
+}
+
+.saveBtn {
+    margin-bottom: 4px
+}
+
+.searchBox {
+    width: 300px;
+}
+
+
+/*  */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins' !important;
+}
+
+.matCard {
+    /* height: 350px; */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    color: #84613D;
+    background: #FDF9EA;
+    border-bottom: 1px solid #F9F2D6;
+    border-right: 1px solid #F9F2D6;
+}
+
+.matcardMainTitle {
+    font-family: 'Poppins' !important;
+    font-size: 24px !important;
+}
+
+mat-card-title {
+    font-family: 'Poppins';
+    font-size: 20px;
+}
+
+.loginCard {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    color: #84613D;
+    background: #FDF9EA;
+    border-bottom: 1px solid #F9F2D6;
+    border-right: 1px solid #F9F2D6;
+}
+
+.btncenter {
+    display: flex;
+    justify-content: center;
+}
+
+.btnDesign {
+    font-family: 'Poppins';
+    font-size: 18px;
+    width: 200px;
+    height: 40px;
+}
+
+.loginbtncenter {
+    /* padding-left: 20px; */
+    margin-left: 138px !important;
+    /* margin-top: 30px !important; */
+    width: 200px;
+    height: 40px;
+}
+
+.snackbarclass {
+    background-color: green;
+}
+
+
+/* filter controls */
+
+.search-div {
+    margin: 10px;
+}
+
+.search-form-field {
+    width: 60%;
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.mat-form-field-infix {
+    width: 250px !important;
+    font-size: 18px;
+    font-family: 'Poppins' !important;
+}
+
+.search-form-field div.mat-form-field-underline {
+    display: none;
+}
+
+.search-form-field div.mat-form-field-infix {
+    border-top: 0px;
+}
+
+.search-form-field div.mat-form-field-wrapper {
+    padding-bottom: 0px;
+}
+
+.search-form-field div.mat-form-field-suffix button {
+    height: 32px;
+    width: 32px;
+}
+
+.verticalmatCard {
+    width: 300px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    color: #84613D;
+    background: #FDF9EA;
+    border-bottom: 1px solid #F9F2D6;
+    border-right: 1px solid #F9F2D6;
+    justify-content: center;
+    align-items: center;
+}
+
+.viewBookCard {
+    /* width: 300px; */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    color: #84613D;
+    background: #FDF9EA;
+    /* border-bottom: 1px solid #F9F2D6;
+    border-right: 1px solid #F9F2D6; */
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+}
+
+.bookImgBorder {
+    height: 300px;
+    border: 1px solid black;
+}
+
+.btn-dialog-close {
+    width: 45px;
+    min-width: 0px !important;
+    height: 40px;
+    padding: 0px !important;
+}
+
+.matcardHeader {
+    display: flex;
+    justify-content: center;
+}
+
+.matcardHeaderContent {
+    font-size: 1.4rem !important;
+}
+
+
+
+.rowHeight {
+    height: 54px;
+}
+
+.btnalignCenter {
+    display: flex;
+    justify-content: center;
+}
+
+.collegeName {
+    font-size: 1.25rem;
+    font-family: 'Poppins';
+}
+
+th.mat-header-cell {
+    text-align: left;
+    font-size: 1rem;
+    color: black;
+    padding: 15px;
+}
+
+.mat-cell,
+.mat-footer-cell {
+    font-size: 18px !important;
+    padding: 15px;
+}
+
+.closebtn {
+    float: right;
+    margin-top: -40px;
+}
+
+.search-box {
+    padding: 8px;
+
+  }
+  .search-box input {
+    width: 188px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .search-box button {
+    margin-bottom: 10px !important;
+    width: 90px;
+  }
+  .search-button {
+    margin-right: 8px;
+  }
+  .customSearchBox{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .ant-select{
+    margin-bottom: 10px !important;
+  }

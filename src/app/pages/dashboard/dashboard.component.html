@@ -1,0 +1,124 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <div class="photoPosition">
+        <img src="assets/img/hrPhoto.jpeg" *ngIf="userDetails.photoPath!=null" alt="logo" class="photo">
+        <img src="assets/img/noUserImg.jpg" *ngIf="userDetails.photoPath ==null" alt="logo" class="photo">
+      </div>
+      <div class="userDetails">
+        <h5 style="color: white;margin-top: 20px;" nz-typography  >{{userDetails.name}}</h5>
+
+        <p class="post"><label class="label">{{roleName}}</label></p>
+      </div>
+
+    </div>
+
+    <!-- <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item routerLink="/dashboard">
+        <i nz-icon nzType="home" nzTheme="fill"></i>
+        <span>Home</span>
+      </li>
+      <li nz-menu-item routerLink="/dashboard/viewleave">
+        <i nz-icon nzType="calendar" nzTheme="fill"></i>
+        <span>Leave</span>
+      </li>
+      <li nz-menu-item routerLink="/dashboard/viewattendance">
+        <i nz-icon nzType="calendar" nzTheme="fill"></i>
+        <span>Daily Attendance</span>
+      </li>
+      <li nz-menu-item routerLink="/dashboard/notifications">
+        <i nz-icon nzType="bell" nzTheme="fill"></i>
+        <span>Notifications</span>
+      </li>
+      <li nz-menu-item routerLink="/dashboard/viewrequests">
+        <i nz-icon nzType="user"></i>
+        <span>Requests</span>
+      </li>
+
+      <li nz-menu-item routerLink="/dashboard/attendancereport">
+        <i nz-icon nzType="calendar" nzTheme="fill"></i>
+        <span> Attendance Report</span>
+      </li>
+      <li nz-menu-item routerLink="/dashboard/office">
+        <i nz-icon nzType="home" nzTheme="outline"></i>
+        <span>Office</span>
+      </li>
+
+      <li nz-menu-item routerLink="/dashboard/qrCodeGen">
+        <i nz-icon nzType="qrcode" nzTheme="outline"></i>
+        <span>QR Code</span>
+      </li>
+
+      <li nz-menu-item routerLink="/dashboard/department">
+        <i nz-icon nzType="group" nzTheme="outline"></i>
+        <span> Group</span>
+      </li>
+
+      <li nz-menu-item (click)="logout()">
+
+        <i nz-icon nzType="logout" nzTheme="outline"></i>
+
+        <span>Logout</span>
+      </li>
+    </ul> -->
+
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      
+       <ng-container *ngFor="let item of menus">
+      <li *ngIf="item.is_sub_menu" nz-submenu nzTitle="{{item.name}}" nzIcon="{{item.icon}}">
+        <ul>
+          <ng-container *ngFor="let sm of item.sub_menu">
+          <li  (click)="navigateUrl(sm.route)" routerLinkActive="router-link-active"  nz-menu-item>
+            <i nz-icon nzType="{{sm.icon}}"></i>
+            {{sm.name}}
+          </li>
+        </ng-container>
+        </ul>
+      </li>
+
+      <li *ngIf="!item.is_sub_menu"  (click)="navigateUrl(item.route)" routerLinkActive="router-link-active" nz-menu-item>
+        <i nz-icon nzType="{{item.icon}}"></i>
+        <span >{{item.name}}</span>
+      </li>
+    </ng-container>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+        </span>
+
+        <span class="DashboardHeaderName">VJ <span><b>Attendance</b></span></span>
+
+        <span class="header-trigger" (click)="toggleTheme()">
+          <i class="trigger" nz-icon nzType="skin" nzTheme="outline"></i>
+        </span>
+        <!-- <span class="header-trigger" (click)="toggleTheme()" >
+            <img src="assets/img/birth-date.png" class="happyBirthImg" />
+          </span>
+          
+          <span class="header-trigger" (click)="toggleTheme()" >
+            <img src="assets/img/work_ann.jpg"  class="happyAnnImg"/>
+          </span> -->
+        <!-- <i class="trigger" nz-icon nzType="skin" nzTheme="outline"></i> -->
+        <!-- <i class="trigger" nz-icon nzType="skin" nzTheme="outline"></i> -->
+        <!-- <nz-switch [ngModel]="false" nzCheckedChildren="1" nzUnCheckedChildren="0"></nz-switch> -->
+
+        <i nz-icon nzType="setting" nzTheme="fill" class="settingsIcon"></i>
+
+      </div>
+
+    </nz-header>
+
+    <nz-content>
+      <div class="inner-content">
+
+        <router-outlet></router-outlet>
+
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

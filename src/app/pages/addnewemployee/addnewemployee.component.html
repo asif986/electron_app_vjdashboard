@@ -1,0 +1,335 @@
+
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="title" [nzFooter]="null" (nzOnCancel)="handleCancel()"
+  nzAutofocus='auto'>
+
+  <form *nzModalContent nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="8" nzRequired>Employee Name</nz-form-label>
+
+      <!-- nzValidatingTip="Validating..." -->
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+
+        <input nz-input formControlName="name" placeholder="Employee Name" />
+
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input your username!
+          </ng-container>
+          <ng-container *ngIf="control.hasError('duplicated')">
+            The username is redundant!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="8" nzRequired>Farvision ID</nz-form-label>
+
+      <!-- nzValidatingTip="Validating..." -->
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="farErrorTpl">
+
+        <input nz-input formControlName="farvision_id" placeholder="Farvision Id" />
+
+        <ng-template #farErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input your farvision id!
+          </ng-container>
+
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="8" nzRequired>Birth Date.</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="birthErrorTpl">
+        <nz-date-picker [(ngModel)]="birthDate" formControlName="dateofbirth" (ngModelChange)="onBirthDateChange($event)"
+          nzSize="large" [nzFormat]="dateFormat">
+        </nz-date-picker>
+        <ng-template #birthErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please select birth date.
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="8" nzRequired>Joining Date.</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="JoiningErrorTpl">
+        <nz-date-picker [(ngModel)]="joinDate" formControlName="workanniversary" (ngModelChange)="onJoinDateChange($event)"
+          nzSize="large" [nzFormat]="dateFormat">
+        </nz-date-picker>
+        <ng-template #JoiningErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please select joining date.
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="8" nzRequired>Role.</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="roleErrorTpl">
+
+
+        <nz-select formControlName="role" nzShowSearch nzAllowClear class="selectSearchBox"
+          (ngModelChange)="changeRole($event)" nzPlaceHolder="Role">
+          <nz-option *ngFor="let r of roleList" nzValue="{{r.role_id}}" nzLabel="{{r.role_name}}"></nz-option>
+        </nz-select>
+        <!-- <input nz-input formControlName="mobileNo" placeholder="Mobile No" type="text" /> -->
+
+        <ng-template #roleErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please select the role.
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="8" nzRequired>Working Slot.</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="workslotErrorTpl">
+
+        <nz-select id="gender" formControlName="workingslot" nzPlaceHolder="working Slot">
+          <!-- <nz-option  *ngFor="let w of workingSlotList" nzValue="{{w.workingSlot_id}}" nzLabel="{{w.shift_nm}}"></nz-option> -->
+          <nz-option nzValue="1" nzLabel="10:00 AM to 7:00 PM"></nz-option>
+          <nz-option nzValue="2" nzLabel="9:30 AM to 7:30 PM"></nz-option>
+          <nz-option nzValue="3" nzLabel="11:00 AM to 8:00 PM"></nz-option>
+
+
+        </nz-select>
+
+
+        <!-- <nz-select formControlName="workingSlot" nzShowSearch nzAllowClear nzPlaceHolder="Working Slot">
+          <nz-option *ngFor="let w of workingSlotList" nzValue="{{w.workingSlot_id}}" nzLabel="{{w.shift_nm}}">
+
+          </nz-option>
+        </nz-select> -->
+        <!-- <input nz-input formControlName="mobileNo" placeholder="Mobile No" type="text" /> -->
+
+        <ng-template #workslotErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please select the Working Slot.
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <!-- nzRequired -->
+      <nz-form-label [nzSpan]="8" >E-mail</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="emailErrorTpl">
+
+        <input nz-input formControlName="email" placeholder="Email" type="email" />
+        <ng-template #emailErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('email')">
+            The input is not valid E-mail!
+          </ng-container>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input your E-mail!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <!-- nzRequired -->
+      <nz-form-label [nzSpan]="8" >Mobile No.</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="mobileErrorTpl">
+
+        <input nz-input formControlName="mobile_no" placeholder="Mobile No" type="text" />
+        <ng-template #mobileErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('minLength')">
+            Please enter the 10 digits number.
+          </ng-container>
+          <ng-container *ngIf="control.hasError('required')">
+            Please enter the mobile no.
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="8" nzRequired>Location.</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="locationErrorTpl">
+
+
+        <nz-select formControlName="office_id" nzShowSearch nzAllowClear class="selectSearchBox"
+          nzPlaceHolder="Office Name" (ngModelChange)="changeOffice($event)">
+          <nz-option *ngFor="let o of officeList" nzValue="{{o.office_id}}" nzLabel="{{o.office_name}}"></nz-option>
+        </nz-select>
+        <!-- <input nz-input formControlName="mobileNo" placeholder="Mobile No" type="text" /> -->
+
+        <ng-template #locationErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please select the location.
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+      <button nz-button nzType="dashed" style="margin-left: 2px;" class="add-button"
+        (click)="addField($event,'1','Add Location')">
+        <i nz-icon nzType="plus"></i>
+      </button>
+
+
+
+    </nz-form-item>
+
+
+
+
+    <nz-form-item>
+
+      <nz-form-label [nzSpan]="8" nzRequired>Group.</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="departmentErrorTpl">
+
+        <nz-select formControlName="department_id" nzShowSearch nzAllowClear class="selectSearchBox"
+          nzPlaceHolder="Department" (ngModelChange)="changeDepartment($event)">
+          <nz-option *ngFor="let d of departmentList" nzValue="{{d.department_id}}" nzLabel="{{d.department_name}}">
+          </nz-option>
+        </nz-select>
+        <!-- <input nz-input formControlName="mobileNo" placeholder="Mobile No" type="text" /> -->
+
+        <ng-template #departmentErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please select the Group.
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+
+
+      <button nz-button nzType="dashed" style="margin-left: 2px;" class="add-button"
+        (click)="addField($event,'2','Add Group')">
+        <i nz-icon nzType="plus"></i>
+      </button>
+    </nz-form-item>
+    <!-- *ngIf="!hideRm" -->
+    <nz-form-item>
+
+      <nz-form-label [nzSpan]="8" nzRequired>Reporting Manager.</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="rmanagerErrorTpl">
+
+
+        <nz-select formControlName="reporting_manager_id" nzShowSearch nzAllowClear class="selectSearchBox"
+          nzPlaceHolder="Reporting Manager " (ngModelChange)="changeManager($event)">
+          <nz-option *ngFor="let r of reportingmanagerList" nzValue="{{r.reporting_manager_id}}"
+            nzLabel="{{r.reporting_manager_name}}"></nz-option>
+        </nz-select>
+        <!-- <input nz-input formControlName="mobileNo" placeholder="Mobile No" type="text" /> -->
+
+        <ng-template #rmanagerErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please select the reporting Manager.
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+
+      <!-- <button nz-button nzType="dashed"  [nzSpan]="1"  style="margin-left: 2px;"   class="add-button" (click)="addField($event)">
+            <i nz-icon nzType="plus"></i>
+          </button> -->
+
+    </nz-form-item>
+
+    <nz-form-item>
+
+      <nz-form-label [nzSpan]="8" nzRequired>HR.</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="hr_idErrorTpl">
+
+
+        <nz-select formControlName="hr_id" nzShowSearch nzAllowClear class="selectSearchBox" nzPlaceHolder="H.R "
+          (ngModelChange)="changeManager($event)">
+          <nz-option *ngFor="let h of hrList" nzValue="{{h.hr_id}}" nzLabel="{{h.hr_name}}"></nz-option>
+        </nz-select>
+        <!-- <input nz-input formControlName="mobileNo" placeholder="Mobile No" type="text" /> -->
+
+        <ng-template #hr_idErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please select the HR.
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+
+      <!-- <button nz-button nzType="dashed"  [nzSpan]="1"  style="margin-left: 2px;"   class="add-button" (click)="addField($event)">
+            <i nz-icon nzType="plus"></i>
+          </button> -->
+
+    </nz-form-item>
+
+    <nz-form-item>
+
+      <nz-form-label [nzSpan]="8" nzRequired>HOD.</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="hod_idErrorTpl">
+
+
+        <nz-select formControlName="hod_id" nzShowSearch nzAllowClear class="selectSearchBox" nzPlaceHolder="H.O.D "
+          (ngModelChange)="changeHod($event)">
+          <nz-option *ngFor="let h of hodList" nzValue="{{h.hod_id}}" nzLabel="{{h.hod_name}}"></nz-option>
+        </nz-select>
+        <!-- <input nz-input formControlName="mobileNo" placeholder="Mobile No" type="text" /> -->
+
+        <ng-template #hod_idErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please select the HR.
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+
+      <!-- <button nz-button nzType="dashed"  [nzSpan]="1"  style="margin-left: 2px;"   class="add-button" (click)="addField($event)">
+            <i nz-icon nzType="plus"></i>
+          </button> -->
+
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="8" nzRequired>Password</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input your password!">
+        <input nz-input type="text" [(ngModel)]="passBirth" [(readonly)]="isReadPassword" formControlName="password" />
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <nz-form-control [nzOffset]="9" [nzSpan]="12">
+        <button nz-button nzType="primary" [nzLoading]="isSubmitLoading">Submit</button>&nbsp;
+        <button nz-button (click)="resetForm($event)">Reset</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+</nz-modal>
+
+
+
+<nz-modal [(nzVisible)]="isfillupData" [(nzTitle)]="modalTitle" (nzOnCancel)="cancelField()" [nzFooter]="null">
+  <!-- <p *nzModalContent>Modal Content</p> -->
+  <div *ngIf="isLocation" class="addLocation">
+    <input nz-input placeholder="Add Location" [(ngModel)]="locationNewValue" nzSize="small" />
+
+    <button nz-button nzType="primary" (click)="addLocation()" class="btnSpace"
+      [nzLoading]="isaddLoSubmitLoading">Submit</button>&nbsp;
+
+  </div>
+
+  <div *ngIf="isDepartment" class="addLocation">
+    <input nz-input placeholder="Add Department" [(ngModel)]="departmentNewValue" nzSize="small" />
+    <button nz-button nzType="primary" (click)="addDepartment()" class="btnSpace"
+      [nzLoading]="isaddDeSubmitLoading">Submit</button>&nbsp;
+
+  </div>
+
+
+  <br />
+
+  <!-- [nzLoading]="isSubmitLoading" -->
+
+</nz-modal>

@@ -1,0 +1,57 @@
+[
+    {
+        "header": "Employee Name",
+        "key": "name", 
+        "width": 25
+    },
+    {
+        "header": "Office",
+        "key": "office", 
+        "width": 25
+    },
+    {
+        "header": "Department",
+        "key": "department_name", 
+        "width": 25
+    },
+    {
+        "header": "Farvsion Id",
+        "key": "farvision_id", 
+        "width": 25
+    },
+    {
+        "header": "Working Area",
+        "key": "main_requests_id", 
+        "width": 25
+    },
+    {
+        "header": "Location",
+        "key": "location", 
+        "width": 25
+    },
+    {
+        "header": "Status",
+        "key": "remark", 
+        "width": 25
+    },
+    {
+        "header": "Date",
+        "key": "date", 
+        "width": 25
+    },
+    {
+        "header": "In Time",
+        "key": "intime", 
+        "width": 25
+    },
+    {
+        "header": "Out Time",
+        "key": "outtime", 
+        "width": 25
+    },
+    {
+        "header": "Total Hours",
+        "key": "total", 
+        "width": 25
+    }
+]

@@ -1,0 +1,52 @@
+/*
+@import "@tomtom-international/web-sdk-maps";
+
+  #map {
+      height: 100vh;
+      width: 60vw;
+  }
+  */
+
+#mapid {
+    height: 800px;
+}
+
+.coolQRCode {
+    filter: drop-shadow(3px 3px 3px #999);
+    display: flex;
+    justify-content: center;
+}
+
+.coolQRCode img {
+    width: 250px;
+}
+
+.selectSearchBox {
+    width: 400px;
+}
+
+.addLo {
+    display: flex;
+    justify-content: center;
+}
+
+.qrcodeSpace {
+    margin-bottom: 2px;
+}
+
+.qrCodeDownloadBtn {
+    margin-top: 15px;
+}
+
+agm-map {
+    height: 300px;
+}
+
+.deletebtn {
+    color: red;
+}
+.downloadBtn_center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

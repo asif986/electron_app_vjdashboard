@@ -1,0 +1,133 @@
+<div *ngIf="!employeeDetails">
+  <nz-divider nzOrientation="" nzDashed="true" nzText="Daily Attendance"></nz-divider>
+
+  <nz-table #basicTable [nzData]="viewAttendanceData" [nzLoading]="loading">
+    <thead >
+      <tr>
+        <!-- <th *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
+          [nzSortDirections]="column.sortDirections" [nzFilterMultiple]="column.filterMultiple"
+          [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn">
+          {{ column.name }}
+        </th> -->
+
+        <th nzCustomFilter>Name
+          <!-- <nz-filter-trigger [(nzVisible)]="isNameSearchVisible" [nzActive]="searchName"
+              [nzDropdownMenu]="nameSearch">
+              <i nz-icon nzType="search"></i> 
+          </nz-filter-trigger>-->
+      </th>
+      <th nzCustomFilter>
+          Office
+
+          <!-- <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue" [nzDropdownMenu]="menu">
+              <i nz-icon nzType="search"></i>
+          </nz-filter-trigger> -->
+      </th>
+      <th nzCustomFilter>
+          Group
+
+          <!-- <nz-filter-trigger [(nzVisible)]="isGroupFilterVisible" [nzActive]="filterGroup" [nzDropdownMenu]="groupSearch">
+              <i nz-icon nzType="search"></i>
+          </nz-filter-trigger> -->
+      </th>
+
+      <!-- <th>Farvision Id</th> -->
+      <th>Work Area</th>
+      <th>Location</th>
+      <th [nzSortOrder]="'ascend'" [nzSortDirections]="['ascend', 'descend', null]" [(nzSortFn)]="sortFn" >Status</th>
+      <th>Date</th>
+      <th>In Time</th>
+      <th>Out Time</th>
+      <th>total Hours</th>
+      <!-- <th>Action</th> -->
+
+
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let attendance of  basicTable.data">
+        <td>{{attendance.name}}</td>
+        <!-- <td>{{attendance.default_location}}</td> -->
+  
+        <!-- <td>{{ attendanceReportService.getOfficeName(attendance.office_id)}}</td> -->
+        <td>{{attendance.office_name }}</td>
+  
+        <td>{{attendance.department_name}}</td>
+  
+        <!-- <td *ngIf="attendance.main_requests_id == '-'" >-</td> -->
+        <td>{{attendance.work_area}}</td>
+  
+        <td>{{attendance.location}}</td>
+  
+  
+  
+        <td
+          [ngClass]="{'Leave': attendance.remark === 'L', 'halfday':attendance.remark === 'H','present':attendance.remark === 'P' ,'absent':attendance.remark =='A','presentLate':attendance.remark =='P/Late'}">
+          <div class="remark"><span [ngClass]="{'Leave1': attendance.remark === 'L'}">{{attendance.remark}}</span></div>
+        </td>
+        <td>{{attendance.date}}</td>
+        <td>{{attendance.intime}}</td>
+        <td>{{attendance.outtime}}</td>
+        <td>{{attendance.total}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+
+          <nz-select nzShowSearch nzAllowClear class="selectSearchBox customSearchBox" [(ngModel)]="searchValue"
+              nzPlaceHolder="office">
+              <nz-option *ngFor="let o of officeList" nzValue="{{o.office_id}}" nzLabel="{{o.office_name}}">
+              </nz-option>
+          </nz-select>
+
+          <!-- <input type="text" nz-input placeholder="Search name"  /> -->
+          <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+              Search
+          </button>
+          <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      </div>
+  </div>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #nameSearch="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+
+          <nz-select nzShowSearch nzAllowClear class="selectSearchBox customSearchBox" [(ngModel)]="searchName"
+              nzPlaceHolder="Name">
+              <nz-option *ngFor="let e of  empList" nzValue="{{e.name}}" nzLabel="{{e.name}}">
+              </nz-option>
+          </nz-select>
+
+          <!-- <input type="text" nz-input placeholder="Search name"  /> -->
+          <button nz-button nzSize="small" nzType="primary" (click)="onChangeSearchName()" class="search-button">
+              Search
+          </button>
+          <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      </div>
+  </div>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #groupSearch="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+
+          <nz-select nzShowSearch nzAllowClear class="selectSearchBox customSearchBox" [(ngModel)]="filterGroup"
+              nzPlaceHolder="Name">
+              <nz-option *ngFor="let d of  departmentList" nzValue="{{d.department_id}}" nzLabel="{{d.department_name}}">
+              </nz-option>
+          </nz-select>
+
+          <!-- <input type="text" nz-input placeholder="Search name"  /> -->
+          <button nz-button nzSize="small" nzType="primary" (click)="groupFilter()" class="search-button">
+              Search
+          </button>
+          <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      </div>
+  </div>
+</nz-dropdown-menu>

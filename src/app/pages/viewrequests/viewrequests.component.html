@@ -1,0 +1,128 @@
+<nz-divider nzOrientation="" class="todayUpdateLabel" nzDashed="true" [nzText]="todayRequestsString"></nz-divider>
+<div nz-row [nzGutter]="16">
+    <div nz-col nzSpan="6">
+        <!-- <label class="label">Filter by date :&nbsp;&nbsp;</label> -->
+        <nz-date-picker [(ngModel)]="changeDate" (ngModelChange)="onDateChange($event)" nzSize="large"
+            [nzFormat]="dateFormat">
+        </nz-date-picker>
+    </div>
+    <div nz-col nzSpan="6">
+        <button nz-button nzType="primary" nzSize="large" (click)="onlyMyReq()">Only My Requests</button> &nbsp;
+        <button nz-button nzType="secondary" *ngIf="isFilterEnable" nzSize="large" (click)="clearFilter()">Clear Filter</button> 
+    </div>
+</div>
+<br />
+<nz-table #basicTable [nzData]="requestData" nzShowSizeChanger nzShowPagination [nzLoading]="loading" [nzFooter]="footerString +requestData.length">
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>Group Name</th>
+            <th>Request Type</th>
+            <!-- <th>Slot</th> -->
+            <th> Request Reason</th>
+            <!-- <th>Reason</th> -->
+            <th>Date & Time</th>
+            <!-- <th>To Date</th> -->
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+
+
+    <tbody>
+        <tr *ngFor="let request of  basicTable.data">
+            <td>{{request.name}}</td>
+            <td>{{request.department_nm}}</td>
+            <td>{{request.reqname}}</td>
+            <td>{{request.reasonfromuser}}</td>
+            <td>{{request.requested_date | date:'medium'}}</td>
+            <td>{{statusRequest(request)}}</td>
+
+            <td>
+                <!-- R.M -->
+                <div *ngIf="request.status ==1 && request.flag==1" style="display: flex;justify-content: flex-start;">
+                    <button class="approvedBtn" nz-popconfirm nzPopconfirmTitle="Are you sure to Approved?"
+                        (nzOnConfirm)="approved(request,2)" (nzOnCancel)="cancel()" nzPopconfirmPlacement="top"
+                        nz-button>
+                        Approved
+                    </button>
+                    <button style="margin-left:30px;border-color:#e00404 ;" nz-popconfirm
+                        nzPopconfirmTitle="Are you sure to Reject?" (nzOnConfirm)="reject(request.request_id,4)"
+                        (nzOnCancel)="cancel()" nzPopconfirmPlacement="top" nz-button>
+                        Reject
+                    </button>
+                </div>
+                <!-- HR -->
+                <div *ngIf="request.status ==2 && request.flag==2" style="display: flex;justify-content: flex-start;">
+                    <button class="approvedBtn" nz-popconfirm nzPopconfirmTitle="Are you sure to Approved?"
+                        (nzOnConfirm)="approved(request,3)" (nzOnCancel)="cancel()" nzPopconfirmPlacement="top"
+                        nz-button>
+                        Approved
+                    </button>
+                    <button style="margin-left:30px;border-color:#e00404 ;" nz-popconfirm
+                        nzPopconfirmTitle="Are you sure to Reject?" (nzOnConfirm)="reject(request.request_id,5)"
+                        (nzOnCancel)="cancel()" nzPopconfirmPlacement="top" nz-button>
+                        Reject
+                    </button>
+                </div>
+                <!--For user contains Same HR  id as well as RM  -->
+                <div *ngIf="request.status ==1 && request.flag==3" style="display: flex;justify-content: flex-start;">
+                    <button class="approvedBtn" nz-popconfirm nzPopconfirmTitle="Are you sure to Approved?"
+                        (nzOnConfirm)="approved(request,2)" (nzOnCancel)="cancel()" nzPopconfirmPlacement="top"
+                        nz-button>
+                        Approved
+                    </button>
+                    <button style="margin-left:30px;border-color:#e00404 ;" nz-popconfirm
+                        nzPopconfirmTitle="Are you sure to Reject?" (nzOnConfirm)="reject(request.request_id,4)"
+                        (nzOnCancel)="cancel()" nzPopconfirmPlacement="top" nz-button>
+                        Reject
+                    </button>
+                </div>
+                <div *ngIf="request.status ==2 && request.flag==3" style="display: flex;justify-content: flex-start;">
+                    <button class="approvedBtn" nz-popconfirm nzPopconfirmTitle="Are you sure to Approved?"
+                        (nzOnConfirm)="approved(request,3)" (nzOnCancel)="cancel()" nzPopconfirmPlacement="top"
+                        nz-button>
+                        Approved
+                    </button>
+                    <button style="margin-left:30px;border-color:#e00404 ;" nz-popconfirm
+                        nzPopconfirmTitle="Are you sure to Reject?" (nzOnConfirm)="reject(request.request_id,5)"
+                        (nzOnCancel)="cancel()" nzPopconfirmPlacement="top" nz-button>
+                        Reject
+                    </button>
+                </div>
+                <!-- <div *ngIf="request.status ==2 && request.flag==5" style="display: flex;justify-content: flex-start;">
+                    <button class="approvedBtn" nz-popconfirm nzPopconfirmTitle="Are you sure to Approved?"
+                        (nzOnConfirm)="approved(request,3)" (nzOnCancel)="cancel()" nzPopconfirmPlacement="top"
+                        nz-button>
+                        Approved
+                    </button>
+                    <button style="margin-left:30px;border-color:#e00404 ;" nz-popconfirm
+                        nzPopconfirmTitle="Are you sure to Reject?" (nzOnConfirm)="reject(request.request_id,5)"
+                        (nzOnCancel)="cancel()" nzPopconfirmPlacement="top" nz-button>
+                        Reject
+                    </button>
+                </div> -->
+
+                <!-- HOD -->
+                <div *ngIf="request.status ==4" style="display: flex;justify-content: flex-start;">
+
+                </div>
+            </td>
+
+
+        </tr>
+    </tbody>
+
+
+</nz-table>
+
+<nz-modal [(nzVisible)]="isModelVisible" nzTitle="Reason For Reject" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    [nzOkLoading]="isOkLoading">
+    <p *nzModalContent>
+
+        <textarea rows="4" nz-input [(ngModel)]="reasonReject"></textarea>
+
+    </p>
+
+</nz-modal>

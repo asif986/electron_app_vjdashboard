@@ -1,0 +1,40 @@
+.selectSearchBox{
+
+    width: 130px;
+}
+
+.disabled{
+    color: red;
+    margin-left: 16px;
+}
+
+.enabled{
+    color: green;
+    margin-left: 16px;
+
+}
+.hold{
+    color: orchid;
+    margin-left: 16px;
+}
+.excelImport_export{
+    float: right;
+}
+
+.editTemplate  td{
+    width: 200px;
+}
+
+
+.excel_export_img{
+    width: 32px;
+    height: 32px;
+}
+.export_div{
+    width: 54px;
+    margin-left: 28px;
+    display: flex;
+}
+.emp_action{
+    display: flex;
+}

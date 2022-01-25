@@ -1,0 +1,79 @@
+<nz-divider nzOrientation="" nzDashed="true" nzText="Create Office"></nz-divider>
+<div style="margin-bottom: 15px;">
+    <button nz-button nzType="primary" (click)="showModal(0)">
+        <i nz-icon nzType="home"></i> <span>Add Office</span>
+    </button>
+</div>
+<br />
+
+<nz-table #editRowTable [nzData]="officeList" [nzLoading]="loading">
+    <thead>
+        <tr>
+            <th>Office Id</th>
+            <th>Office Name</th>
+            <th>Short Office Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of editRowTable.data">
+
+            <ng-container *ngIf="!editCache[data.office_id].edit; else editTemplate">
+                <td>{{data.office_id}}</td>
+                <td>{{data.office_name}}</td>
+                <td>{{data.short_office_name}}</td>
+                <td>
+                    <a (click)="startEdit(data.office_id)">Edit</a> &nbsp;
+                    <a class="deletebtn" (click)="deleteOffice(data.office_id)">Delete</a>&nbsp;
+                    <!-- <a  (click)="updateQrCode(data,1)">Update Qr Code</a> -->
+                </td>
+            </ng-container>
+
+            <ng-template #editTemplate>
+                <td>{{data.office_id}}</td>
+                <td><input type="text" nz-input [(ngModel)]="editCache[data.office_id].data.office_name" /></td>
+                <td><input type="text" nz-input [(ngModel)]="editCache[data.office_id].data.short_office_name" /></td>
+                <!-- <td><input type="text" nz-input [(ngModel)]="editCache[data.qrcode_id].data.allowed_distance" /></td> -->
+
+                <!-- <input type="text" nz-input [(ngModel)]="editCache[data.id].data.reporting_manager" /></td> -->
+                <!-- <td><input type="text" nz-input [(ngModel)]="editCache[data.id].data.departmentname" /></td> -->
+
+
+
+                <td>
+                    <button (click)="saveEdit(data.office_id)" nz-button class="saveBtn">Save</button>
+                    &nbsp;
+                    <button nzDanger (click)="cancelEdit(data.office_id)" nz-button> Cancel </button>
+                </td>
+            </ng-template>
+        </tr>
+    </tbody>
+</nz-table>
+
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalHeaderNm" (nzOnCancel)="handleCancel()" [nzFooter]="null">
+
+    <div *nzModalContent>
+        <div class="officeSpace">
+
+            <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="20">
+                    <input type="text" nz-input placeholder="Full Office Name" [(ngModel)]="officeName" />
+                </div>
+            </div>
+            <br />
+            <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="20">
+                <input type="text" nz-input placeholder="Short Office Name" [(ngModel)]="shortOfficeName" />
+            </div>
+        </div>
+
+
+        </div>
+
+        <button nz-button nzType="primary" class="officeBtn" (click)="addOffice()"
+            [nzLoading]="isaddLoSubmitLoading">Save</button>&nbsp;
+        <!-- <button nz-button (click)="resetForm($event)">Reset</button> -->
+
+    </div>
+</nz-modal>

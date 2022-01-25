@@ -1,0 +1,68 @@
+<nz-divider nzOrientation="" nzDashed="true" nzText="Department Info"></nz-divider>
+<br />
+
+<nz-table #editRowTable [nzData]="DepartmentList" [nzLoading]="loading">
+    <thead>
+        <tr>
+
+            <th width="500px" nzCustomFilter>Group Name
+                <nz-filter-trigger [(nzVisible)]="isDepartNameSearchVisible" [nzActive]=" searchDepartName"
+                    [nzDropdownMenu]="nameSearch">
+                    <i nz-icon nzType="search"></i>
+
+                </nz-filter-trigger>
+            </th>
+            <th>Group Code</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of editRowTable.data">
+
+            <ng-container *ngIf="!editCache[data.department_id].edit; else editTemplate">
+
+                <td>{{data.department_name}}</td>
+                <td>{{data.department_code}}</td>
+
+                <td>
+                    <a (click)="startEdit(data.department_id)">Edit</a> &nbsp;
+                    <!-- <a class="deletebtn" (click)="deleteQrCode(data.department_id)">Delete</a> -->
+                </td>
+            </ng-container>
+
+            <ng-template #editTemplate>
+                <td><input type="text" nz-input [(ngModel)]="editCache[data.department_id].data.department_name" /></td>
+                <td><input type="text" nz-input [(ngModel)]="editCache[data.department_id].data.department_code" /></td>
+
+                <!-- <input type="text" nz-input [(ngModel)]="editCache[data.id].data.reporting_manager" /></td> -->
+                <!-- <td><input type="text" nz-input [(ngModel)]="editCache[data.id].data.departmentname" /></td> -->
+
+
+
+                <td>
+                    <button (click)="saveEdit(data.department_id)" nz-button class="saveBtn">Save</button>
+                    &nbsp;
+                    <button nzDanger (click)="cancelEdit(data.department_id)" nz-button> Cancel </button>
+                </td>
+            </ng-template>
+        </tr>
+    </tbody>
+</nz-table>
+
+<nz-dropdown-menu #nameSearch="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+
+            <nz-select nzShowSearch nzAllowClear class="selectSearchBox customSearchBox" [(ngModel)]="searchDepartName" nzPlaceHolder="Name">
+                <nz-option *ngFor="let d of  DepartmentList" nzValue="{{d.department_name}}" nzLabel="{{d.department_name}}">
+                </nz-option>
+            </nz-select>
+
+            <!-- <input type="text" nz-input placeholder="Search name"  /> -->
+            <button nz-button nzSize="small" nzType="primary" (click)="onChangeSearchDepartmentName()" class="search-button">
+        Search
+      </button>
+            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+        </div>
+    </div>
+</nz-dropdown-menu>

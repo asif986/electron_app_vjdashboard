@@ -1,0 +1,7 @@
+.ant-card-head-title{
+    font-size: 22px !important;
+}
+.displayInfo{
+    display: flex;
+    justify-content: space-evenly;
+}

@@ -1,0 +1,55 @@
+
+<nz-divider nzOrientation="" class="todayUpdateLabel" nzDashed="true" [nzText]="todayLeaveString"></nz-divider>
+
+<nz-table #basicTable [nzData]="leaveData" [nzLoading]="loading">
+    <thead>
+      <tr>
+        <th>Employee Name</th>
+        <th>Group Name</th>
+        <th>Leave Type</th>
+        
+        <th>Description</th>
+         <th>Subject</th>
+        <th>Form Date</th>
+        <th>To Date</th>
+        <th>Status</th>
+        <th>Approved</th>
+
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let leave of  basicTable.data">
+            <td>{{leave.name}}</td>
+            <td>{{leave.department_name}}</td>
+            <td *ngIf="leave.leave_type ==0">Sick Leave</td>
+            <td *ngIf="leave.leave_type ==1">Casual Leave</td>
+
+            <td>{{leave.subject}}</td>
+            <td>{{leave.description}}</td>
+            <td>{{leave.from_date}}</td>
+            <td>{{leave.to_date}}</td>
+            <td *ngIf="leave.status ==1">Pending</td>
+            <td *ngIf="leave.status ==2">Success</td>
+            <td *ngIf="leave.status ==3">Reject</td>
+
+            <td>
+                <button
+                nz-popconfirm
+                nzPopconfirmTitle="Are you sure to Approved?"
+                (nzOnConfirm)="approved(leave.emp_id)"
+                (nzOnCancel)="cancel()"
+                nzPopconfirmPlacement="top"
+                nz-button
+              >
+                Aprroved
+              </button>
+              </td>
+            <!-- <td><button type="button" class="btn btn-primary" (click)="approved()">Approved</button></td>
+  <td> <button nz-button (click)="approved()">Success</button></td> -->
+  
+  
+          </tr>
+
+      
+    </tbody>
+  </nz-table>

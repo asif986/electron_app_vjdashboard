@@ -1,0 +1,73 @@
+<div nz-row [nzGutter]="8" *ngIf="isNotification">
+
+    <div nz-col [nzSpan]="12">
+        <nz-card nzTitle="Birthdays">
+
+            <nz-table #basicTable1 [nzData]="getBirthdayList">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Group Name</th>
+                        <th>Office</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of basicTable1.data">
+                        <td><i nz-icon nzType="user" nzTheme="outline"></i>&nbsp;{{data.name}}</td>
+                        <td>{{data.department_name}}</td>
+                        <td>{{data.default_location}}</td>
+
+                    </tr>
+                </tbody>
+            </nz-table>
+
+
+        </nz-card>
+    </div>
+
+
+    <div nz-col [nzSpan]="12">
+        <nz-card nzTitle="Work anniversarys">
+
+            <nz-table #basicTable [nzData]="getWorkAnniversaryList">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Group Name</th>
+                        <th>Office</th>
+                        <th>Completed year</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of basicTable.data">
+                        <td><i nz-icon [nzType]="'heart'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'"></i>&nbsp;{{data.name}}</td>
+                        <td>{{data.department_name}}</td>
+                        <td>{{data.default_location}}</td>
+                        <td>{{data.completeYears}}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+
+
+        </nz-card>
+    </div>
+
+</div>
+
+
+<div nz-row [nzGutter]="8" *ngIf="!isNotification">
+
+    <div nz-col [nzSpan]="12">
+        <nz-card nzTitle="Birthdays">
+            <nz-skeleton-element nzType="input" [nzActive]="true" nzSize="Large" style="width:100%;"></nz-skeleton-element>
+        </nz-card>
+    </div>
+    <div nz-col [nzSpan]="12">
+        <nz-card nzTitle="Work anniversarys">
+            <nz-skeleton-element nzType="input" [nzActive]="true" nzSize="Large" style="width:100%;"></nz-skeleton-element>
+
+        </nz-card>
+    </div>
+
+</div>

@@ -1,0 +1,75 @@
+<nz-header class="header"><span class="logoName">VJ <span><b>Attendance</b></span></span>
+</nz-header>
+
+<div class="vjlogo">
+  <img src="assets/img/logo.png" alt="" class="logo">
+</div>
+<nz-card nzTitle="LOGIN" style="width: 400px;margin: auto;">
+
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+
+
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Farvision ID !">
+        <nz-input-group nzPrefixIcon="user" nzSize="large">
+          <input type="text" nz-input formControlName="email" placeholder="Farvision ID" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Password!">
+        <nz-input-group nzPrefixIcon="lock" nzSize="large">
+          <input type="password" nz-input formControlName="password" placeholder="Password" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <div nz-row class="login-form-margin">
+
+
+      <div nz-col [nzSpan]="12">
+        <!-- <a class="login-form-forgot">Forgot password</a> -->
+      </div>
+
+    </div>
+    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button>
+
+  </form>
+
+  
+
+</nz-card>
+
+<!--  
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
+  
+    <div class="loginCard">
+
+        
+            <mat-card >
+            <mat-card-title class="textlabel">HR Login</mat-card-title>
+     
+            <mat-form-field>
+                <input matInput placeholder="Farvision ID" formControlName="email">
+                <mat-error *ngIf="hasError('email', 'required')">Farvision ID is required</mat-error>
+                <mat-error *ngIf="hasError('email', 'email')">Farvision ID is required</mat-error>
+
+            </mat-form-field>
+        
+
+        
+            <mat-form-field>
+                <input matInput type="password" placeholder="Password" formControlName="password">
+                <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
+            </mat-form-field>
+         
+
+        <div class="loginBtn">
+        <button [disabled]="" mat-raised-button  class="btnDesign"   mat-button>LOG IN</button>
+    </div>
+
+    </mat-card>
+    </div>
+
+</form> -->
+
+<app-spinner></app-spinner>

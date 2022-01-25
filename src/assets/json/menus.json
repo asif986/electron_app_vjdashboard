@@ -1,0 +1,86 @@
+[
+    {
+        "name": "HOME",
+        "route": "/dashboard",
+        "icon": "home",
+        "is_sub_menu": false
+    },
+    {
+        "name": "MASTERS",
+        "route": "",
+        "icon": "user",
+        "is_sub_menu": true,
+        "sub_menu": [
+            {
+                "name": "Employee Details",
+                "route": "/dashboard/employeeInfo",
+                "icon": "user"
+            },
+            {
+                "name": "Working Slot",
+                "route": "",
+                "icon": "user"
+            }
+        ]
+    },
+    {
+        "name": "REPORTS",
+        "route": "",
+        "icon": "bars",
+        "is_sub_menu": true,
+        "sub_menu": [
+            {
+                "name": "Daily Attendance",
+                "route": "/dashboard/viewattendance",
+                "icon": "calendar"
+            },
+            {
+                "name": "Attendance Report",
+                "route": "/dashboard/attendancereport",
+                "icon": "calendar"
+            }
+        ]
+    },
+    {
+        "name": "QR CODE",
+        "route": "",
+        "icon": "qrcode",
+        "is_sub_menu": true,
+        "sub_menu": [
+            {
+                "name": "QR Generation",
+                "route": "/dashboard/qrCodeGen",
+                "icon": "qrcode"
+            },
+            {
+                "name": "Add Office",
+                "route": "/dashboard/office",
+                "icon": "calendar"
+            }
+        ]
+    },
+    {
+        "name": "REQUEST",
+        "route": "/dashboard/viewrequests",
+        "icon": "user",
+        "is_sub_menu": false
+    },
+    {
+        "name": "GROUP",
+        "route": "/dashboard/department",
+        "icon": "group",
+        "is_sub_menu": false
+    },
+    {
+        "name": "NOTIFICATION",
+        "route": "/dashboard/notifications",
+        "icon": "bell",
+        "is_sub_menu": false
+    },
+    {
+        "name": "LOGOUT",
+        "route": "LOGOUT",
+        "icon": "logout",
+        "is_sub_menu": false
+    }
+]

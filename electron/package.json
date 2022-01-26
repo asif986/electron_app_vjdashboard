@@ -6,14 +6,11 @@
     "name": "Asif Mulla",
     "email": "asifmulla166037@gmail.com"
   },
-
   "repository": {
     "type": "git",
-    "url": "https://github.com/sumitmpathak-VJ/AttendanceDashboard.git",
-    "GH_TOKEN": "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"
+    "url": "https://github.com/asif986/electron_app_vjdashboard.git",
+    "token": "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"
   },
-
-  
   "license": "MIT",
   "main": "build/src/index.js",
   "scripts": {
@@ -21,10 +18,9 @@
     "electron:start-live": "node ./live-runner.js",
     "electron:start": "npm run build && electron --inspect=5858 ./",
     "electron:pack": "npm run build && electron-builder build --dir -c  ./electron-builder.config.json",
-    "electron:make": "npm run build && electron-builder build -c ./electron-builder.config.json -wl -p always",
+    "electron:make": "npm run build && electron-builder build  -c ./electron-builder.config.json -w -p always",
     "dist:windows": "electron-packager ./ --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Electron Tutorial App'",
     "dist:linux": "electron-packager ./ --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds"
-    
   },
   "dependencies": {
     "@capacitor-community/electron": "^4.0.1",
@@ -42,14 +38,14 @@
     "electron-rebuild": "~2.3.5",
     "typescript": "~4.3.5"
   },
-
   "build": {
     "publish": [
       {
         "provider": "github",
         "owner": "asif986",
-        "repo": "https://github.com/sumitmpathak-VJ/AttendanceDashboard.git",
-        "token": "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"
+        "repo": "https://github.com/asif986/electron_app_vjdashboard.git",
+        "GH_TOKEN": "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"
+        
       }
     ]
   },

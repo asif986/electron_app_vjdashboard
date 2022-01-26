@@ -7,7 +7,8 @@
     {
       "provider": "github",
       "owner": "asif986",
-      "repo": "https://github.com/sumitmpathak-VJ/AttendanceDashboard.git"
+      "repo": "https://github.com/asif986/electron_app_vjdashboard.git"
+      
     }
   ],
   "files": [
@@ -24,7 +25,10 @@
   },
   "win": {
     "publish": [
-      "github"
+      {
+        "provider": "github"
+        
+      }
     ],
     "icon": "assets/icon.png",
     "target": [
